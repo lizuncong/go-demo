@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println("hello world")
-	sayHi()
-	fmt.Print("dd")
+	var ptr *int
+
+	fmt.Printf("ptr 的值为 : %x\n", ptr)
 }
