@@ -40,7 +40,7 @@ func Users(w http.ResponseWriter, r *http.Request) {
 		if err == nil {
 			fmt.Println("根据id查询用户信息", id)
 		} else {
-			listUsers(w, r)
+			// listUsers(w, r)
 		}
 	case http.MethodPost:
 		fmt.Println("POST /users，新增用户")
