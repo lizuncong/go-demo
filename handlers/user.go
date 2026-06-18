@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
-	"strings"
 
 	"go-demo/models"
+	"go-demo/utils"
 )
 
 type Response struct {
@@ -31,16 +31,20 @@ func getUserById(w http.ResponseWriter, r *http.Request) {
 }
 
 func Users(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("user handler request method:", r.Method, r.URL.Path)
-	idStr := strings.TrimPrefix(r.URL.Path, "/users/")
-	idStr = strings.Trim(idStr, "/")
-	id, err := strconv.Atoi(idStr)
+	fmt.Println("user handler request method:", r.Method, r.URL.String(), r.URL.Path)
+	params, _ := utils.ParseUrlParams("/users/:id", r.URL.String())
+	var id int
+	fmt.Println("id....", id)
+	idStr := params["id"] // 因为 map 取不存在的 key 时也会返回空字符串
+	if idStr != "" {
+		id, _ = strconv.Atoi(idStr)
+	}
 	switch r.Method {
 	case http.MethodGet:
-		if err == nil {
+		if id != 0 {
 			fmt.Println("根据id查询用户信息", id)
 		} else {
-			// listUsers(w, r)
+			listUsers(w)
 		}
 	case http.MethodPost:
 		fmt.Println("POST /users，新增用户")

@@ -11,8 +11,10 @@ import (
 func ParseUrlParams(pattern string, urlStr string) (map[string]string, bool) {
 	urlParts := strings.Split(urlStr, "?")
 	pathStr := urlParts[0]
-	queryStr := urlParts[1]
-	fmt.Println("url解析: ", pathStr, queryStr)
+	var queryStr string
+	if len(urlParts) > 1 {
+		queryStr = urlParts[1]
+	}
 	patternParts := strings.Split(strings.Trim(pattern, "/"), "/")
 	pathParts := strings.Split(strings.Trim(pathStr, "/"), "/")
 	params := map[string]string{}
