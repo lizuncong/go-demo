@@ -7,9 +7,12 @@ import (
 	"net/http"
 
 	"go-demo/handlers"
+	"go-demo/views"
 )
 
 func main() {
+	renderer, err := views.NewRenderer()
+	fmt.Println("renderer.....", renderer, err)
 	http.HandleFunc("/users", handlers.Users)
 	http.HandleFunc("/users/", handlers.Users)
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
